@@ -1,2 +1,2 @@
 # LCOM
-Course Repository for Computer Laboratories 2019/20 - FEUP
+Course Repository for Computer Lab 2019/20 - FEUP
