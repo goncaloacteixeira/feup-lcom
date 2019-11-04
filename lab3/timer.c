@@ -6,8 +6,8 @@
 #include "i8254.h"
 #include "timer.h"
 
-uint32_t time_counter = 0;
-static int32_t irq_hook_id;
+uint32_t time_counter;
+static int32_t irq_hook_id = 0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
@@ -63,7 +63,7 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
         printf("Error writing LSB\n");
         return 4;
     }
-    // Load MSB
+    // load MSB
     if (sys_outb(timerPort, initVal_MSB) != 0)
     {
         printf("Error writing MSB\n");
@@ -73,13 +73,13 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no){
-    uint8_t temp = irq_hook_id;
-    if (sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &irq_hook_id) == OK)
+    (*bit_no) = BIT(irq_hook_id);
+    if (sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &irq_hook_id) != OK)
     {
-       return temp;
+        printf("Error::sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &irq_hook_id)\n");
+        return 1;
     }
-    printf("Error::sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &irq_hook_id)\n");
-    return 1;
+    return 0;
 }
 
 int (timer_unsubscribe_int)() {
@@ -109,7 +109,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   {
       if (sys_inb(TIMER_0, &conf) != 0)         // escreve em conf o status byte lido do TIMER_0
       {
-          printf("sys_outb::error\n");
+          printf("sys_inb::error\n");
           return 2;
       }
   }
@@ -117,7 +117,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   {
       if (sys_inb(TIMER_1, &conf) != 0)
       {
-          printf("sys_outb::error\n");
+          printf("sys_inb::error\n");
           return 2;
       }
   }
@@ -125,7 +125,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   {
       if (sys_inb(TIMER_2, &conf) != 0)
       {
-          printf("sys_outb::error\n");
+          printf("sys_inb::error\n");
           return 2;
       }
   }
