@@ -37,7 +37,7 @@ void (kbc_ih)(void) {
             return;
         }
 
-        if ((status_reg & (PRT_ERROR | TIMOUT_ERROR)) == 0) {
+        if ((status_reg & (PRT_ERROR | TIMEOUT_ERROR)) == 0) {
             return;
         }
 
@@ -85,7 +85,7 @@ int (kbc_poll)(void) {
             return 1;
         }
 
-        if ((status_reg & (PRT_ERROR | TIMOUT_ERROR)) == 0) {
+        if ((status_reg & (PRT_ERROR | TIMEOUT_ERROR)) == 0) {
             return 0;
         }
 

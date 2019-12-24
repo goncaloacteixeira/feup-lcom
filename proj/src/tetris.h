@@ -1,53 +1,85 @@
-#include "lcom/lcf.h"
-#include "Bitmap.h"
-#include "keyboard.h"
+#include <lcom/lcf.h>
 #include "video_gr.h"
+#include "keyboard.h"
+#include "Bitmap.h"
+#include "timer.h"
+#include "menus.h"
+
+// board["y"]["x"]
+int board[22][15];
+bool status[22][15];
 
 typedef struct {
-	int height;
-	int width;
-} dimension_t;
-
-
-typedef struct {
-  Bitmap* rotation0;
-  Bitmap* rotation1;
-  Bitmap* rotation2;
-  Bitmap* rotation3;
-  int rotation;
-  int block;
-	dimension_t dimension;
-} piece_t;
+	Bitmap* number0;
+	Bitmap* number1;
+	Bitmap* number2;
+	Bitmap* number3;
+	Bitmap* number4;
+	Bitmap* number5;
+	Bitmap* number6;
+	Bitmap* number7;
+	Bitmap* number8;
+	Bitmap* number9;
+} numbers;
 
 typedef struct {
-	piece_t piece1;
-	piece_t piece2;
-	piece_t piece3;
-	piece_t piece4;
-	piece_t piece5;
-	piece_t piece6;
-	piece_t piece7;
-	piece_t piece8;
-  piece_t piece9;
-	piece_t piece10;
-	piece_t piece11;
-	piece_t piece12;
+	Bitmap* b1;
+	Bitmap* b2;
+	Bitmap* b3;
+	Bitmap* b4;
+	Bitmap* b5;
+	Bitmap* b6;
+	Bitmap* b7;
 
-	Bitmap* background;	
+	int speed;
+
+	int points;
+
+	int current_piece;
+	int next_piece;
+	int on_hold;
+
+	numbers numbers;
+
+	Bitmap* background;
 } tetris;
 
 
 
-piece_t createPiece(int block);
-int drawPiece(piece_t* piece, int x, int y, int rotation);
-int dropPiece(piece_t* piece, int speed);
+
+int* getStatusBoard();
+
+tetris startGame(int speed);
+
+int printPoints(tetris* game);
+
+int fillWithZeros();
+
+int printBoard(tetris* game);
+
+int printNext(tetris* game);
+
+int printOnHold(tetris* game);
+
+/**
+ * @return 0 for normal drop
+ * @return 1 for early game-over
+ * @return 2 for game-over
+ */ 
+int dropPiece(tetris* game, menus_t* menus);
+
+int desintegrateLines(tetris* game);
+
+int test(tetris* game, menus_t* menus);
+
+int updateFrame(tetris* game);
+
+bool checkNearColisionLeft(tetris* game, int blocks, int pos[][2]);
+bool checkNearColisionRight(tetris* game, int blocks, int pos[][2]);
+bool checkNearColisionBottom(tetris* game, int blocks, int pos[][2]);
+
+int checkColision(tetris* game, int blocks, int pos[][2]);
 
 
-tetris startTetris();
-
-int drawGameBackground(tetris* game);
-
-int saveGameStatus();
-char* getGameStatus();
-
-int startNewGame(tetris* game, int speed);
+int pauseMenu(menus_t* menus);
+int gameOverMenu(tetris* game, menus_t* menus);

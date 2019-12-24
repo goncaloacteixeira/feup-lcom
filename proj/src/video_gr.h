@@ -21,6 +21,9 @@ char* getAuxBuffer();
 unsigned int getVRAMSize();
 
 int doubleBuffering();
+int resetSecondBuffer();
+
 int updateFrame();
+
 
 #endif //LAB5_VIDEO_GR_H

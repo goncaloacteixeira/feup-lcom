@@ -174,9 +174,8 @@ int doubleBuffering() {
 }
 
 
-int updateFrame() {
-    // char* aux_buffer = getAuxBuffer();
-    memcpy(aux_buffer, getGameStatus(), vram_size);
-    // aux_buffer = &gameStatus;
+int resetSecondBuffer() {
+    memset(aux_buffer, 0, vram_size);
     return 0;
 }
+

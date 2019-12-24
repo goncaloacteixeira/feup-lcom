@@ -1,0 +1,28 @@
+//
+// Created by skidr on 29/10/2019.
+//
+
+#ifndef LAB4_MOUSE_H
+#define LAB4_MOUSE_H
+
+#include <lcom/lcf.h>
+#include "i8042.h"
+#include <stdint.h>
+#include <stdio.h>
+
+#include "timer.h"
+
+int mouse_subscribe_int(uint32_t *bit_no);
+int mouse_unsubscribe_int(void);
+void (mouse_ih)(void);
+void process_packet(void);
+void process_remote(void);
+
+int mouse_issue_cmd(uint32_t command);
+
+typedef enum {I1, D1, L1, I2, D2, L2, C} state_t;
+typedef enum {MOV1, A1, B, MOV2, A2, RIGHT_B, LEFT_LB, RB_UP, LB_UP} event_t;
+void check_line(event_t *evt);
+
+
+#endif //LAB4_MOUSE_H
