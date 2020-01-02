@@ -2344,7 +2344,7 @@ int checkColision(tetris* game, int blocks, int pos[][2]) {
 	return 0;					// nenhuma colisão detetada
 }
 
-int test(tetris* game,  menus_t* menus) {
+int tetris_start(tetris* game,  menus_t* menus) {
 	fillWithZeros();
 	drawBitmap(game->background,0,0,getAuxBuffer());
 	doubleBuffering();

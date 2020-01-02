@@ -91,49 +91,6 @@ void change_color(uint16_t x, uint16_t y, uint32_t color) {
     }
 }
 
-int vg_draw_pixmap(xpm_map_t xpm, uint16_t x, uint16_t y) {
-    xpm_image_t img;
-    uint8_t *map;
-    // get the pixmap from the XPM
-    map = xpm_load(xpm, XPM_5_6_5, &img);
-    // copy it to graphics memory
-
-    for (int i = 0; i < img.height; i++) {
-        for (int j = 0; j < img.width; j++) {
-            uint32_t color = map[j + i*img.width];
-            change_color(x+j, y+i, color);
-        }
-    }
-
-    return 0;
-}
-
-int vg_draw_sprite(Sprite *sprite) {
-    int x = sprite->width;
-    int y = sprite->height;
-
-    for (int i = 0; i < y; i++) {
-        for (int j = 0; j < x; j++) {
-            uint32_t color = sprite->map[j + i*x];
-            change_color(sprite->x + j, sprite->y + i, color);
-        }
-    }
-
-    return 0;
-}
-
-int vg_erase_sprite(Sprite *sprite) {
-    int y = sprite->height;
-    int x = sprite->width;
-
-    for (int i = 0; i < y; i++) {
-        for (int j = 0; j < x; j++) {
-            change_color(sprite->x + j, sprite->y + i, TRANSPARENCY_COLOR_1_5_5_5);
-        }
-    }
-    return 0;
-}
-
 int vg_vbe_controller_info(struct vg_vbe_contr_info *vbeContrInfo) {
     mmap_t temp;
     if (lm_alloc(sizeof(struct vg_vbe_contr_info), &temp) == NULL)

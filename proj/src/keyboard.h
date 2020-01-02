@@ -15,7 +15,15 @@ int sys_inb_cnt(port_t port, uint32_t *byte);
 #define sys_inb_cnt(p,v) sys_inb(p,v)
 #endif
 
-// functions for function 1
+/**
+ * @file keyboard.h
+ * @brief Project Module with functions to manage keyboard
+ */
+
+/** @defgroup keyboard keyboard
+ * @{
+ * Functions for keyboard management
+ */
 
 /** @brief Function to count and call sys_inb calls;
  *
