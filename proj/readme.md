@@ -1,7 +1,6 @@
 # Disclaimer 
 
-This project does not compile as it is, of course you can arranje to compile it, although the main goal is to help other students on their LCOM project.
-
+This project does not compile as it is, of course you can arranje to compile it, although the main goal is to help you on your LCOM project.
 
 
 [Demo](https://youtu.be/owtlLxA0uRo)
